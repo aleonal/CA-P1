@@ -22,4 +22,9 @@ void insertLinkedListNode(LList *list, char *stringToAdd);
 /* Prints linked list */
 void printLinkedList(LList *list);
 
+/* Delete node from linked list: given a pointer to a list, searches for the node with matching strings and deletes it from
+   the list */
+void removeLinkedListNode(LList *list, char *stringToDelete);
+
+
 #endif
