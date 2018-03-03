@@ -3,7 +3,7 @@
 
 /* Linked list nodes: holds pointer to the next node and a pointer to character data */
 typedef struct LLNode_s {
-  struct LLNode *next;
+  struct LLNode_s *next;
   char *string;
 } LLNode;
 

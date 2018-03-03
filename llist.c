@@ -40,7 +40,7 @@ void insertLinkedListNode(LList *list, char *stringToAdd) {
 
 void removeLinkedListNode(LList *list, char *stringToDelete) {
   LLNode *iterator;
-  LLNode *previous = *list->first;
+  LLNode *previous = list->first;
   int length;
   int isContained = 2;
 
@@ -84,7 +84,7 @@ void printLinkedList(LList *list) {
   int count = 1;
   printf("List contents: \n");
   for(iterator = list->first; iterator; iterator = iterator->next) {
-    printf("  %d: <%s>\n", count iterator->string);
+    printf("  %d: <%s> \n", count, iterator->string);
     count++;
   }
 }
