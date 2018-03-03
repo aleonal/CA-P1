@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "llist.h"
+
+LList *newLinkedList();
+void insertLinkedListNode(LList *list, char *stringToAdd);
+void removeLinkedListNode(LList *list, char *stringToDelete);
+void printLinkedList(LList *list);
 
 LList *newLinkedList() {
   LList *list = (LList *)malloc(sizeof(LList));
@@ -20,14 +26,18 @@ void insertLinkedListNode(LList *list, char *stringToAdd) {
   stringCopy = (char *)malloc(length + 1);
 
   /* Copies contents of stringToAdd into the memory allocated for its copy */
-  for(length = 0; stringToAdd[length]; length++)
-    stringCopy[length] = stringToAdd[length];
+  for(length = 0; stringToAdd[length]; length++) {
+    if(stringToAdd[length] != '\n')
+      stringCopy[length] = stringToAdd[length];
+    if(stringToAdd[length] == '\0')
+      break;
+  }
   stringCopy[length] = 0;
 
   /* Instantiate the new node */
   newNode = (LLNode *)malloc(sizeof(LLNode));
   newNode->string = stringCopy;
-  newNode->next = 0;
+  newNode->next = NULL;
 
   /* Append new node and make it the last element */
   if(list->last)
@@ -68,21 +78,25 @@ void removeLinkedListNode(LList *list, char *stringToDelete) {
 
   if(isContained == 2) {
     printf("User does not exist!\n");
+    return;
   }
   else
     printf("User was removed successfully!\n");
 
   /* Removes the node from the list */
-  if(previous == list->first)             // If node to be removed is the head
+  if(iterator == list->first)             // If node to be removed is the head
     list->first = list->first->next;
-  else                                   // If node to be removed is any other node
-    previous->next = iterator->next;
+  else {                                   // If node to be removed is any other node
+    if(iterator == list->last)
+      list->last = NULL;
+    else
+      previous->next = iterator->next;
+  }
 }
 
 void printLinkedList(LList *list) {
   LLNode *iterator;
   int count = 1;
-  printf("List contents: \n");
   for(iterator = list->first; iterator; iterator = iterator->next) {
     printf("  %d: <%s> \n", count, iterator->string);
     count++;
